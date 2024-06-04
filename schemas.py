@@ -1,16 +1,23 @@
 from pydantic import BaseModel
+from typing import Optional
 
 
-# Create ToDo Schema (Pydantic Model)
-class ToDoCreate(BaseModel):
-    id:int
+class ToDoBase(BaseModel):
     task: str
 
+class ToDoCreate(ToDoBase):
+    pass
 
-# Create ToDo Schema (Pydantic Model)
-class ToDo(BaseModel):
-    id:int
-    task: str
+
+# Schema for updating a todo item
+class ToDoUpdate(BaseModel):
+    completed: Optional[bool]  # Optional field to update the completion status
+
+class ToDo(ToDoBase):
+    id: int
+    completed: bool
 
     class Config:
         orm_mode = True
+
+
